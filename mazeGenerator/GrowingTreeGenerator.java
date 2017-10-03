@@ -8,11 +8,13 @@ import maze.Cell;
 public class GrowingTreeGenerator implements MazeGenerator {
     // Growing tree maze generator. As it is very general, here we implement as "usually pick the most recent cell, but occasionally pick a random cell"
 
-    Random random = new Random();
-    double threshold = 0.1;
-    double randomPickNumber = 0;
-    double recentPickNumber = 0;
-    double totalPickNUmber = 0;
+    /**
+     * parameter of particular strategy
+     */
+    private Random random = new Random();
+    private double threshold = 0.1;
+    private double randomPickNumber = 0;
+    private double totalPickNUmber = 0;
 
     /**
      * pick random cell from set Z
@@ -33,7 +35,6 @@ public class GrowingTreeGenerator implements MazeGenerator {
      * @return cell at the end index of set Z
      */
     private Cell recentPickCell(ArrayList<Cell> Z) {
-        recentPickNumber++;
         totalPickNUmber++;
         return Z.get(Z.size() - 1);
 
