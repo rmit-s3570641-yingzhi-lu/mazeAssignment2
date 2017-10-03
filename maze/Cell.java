@@ -10,6 +10,10 @@ package maze;
  */
 public class Cell {
 	/**
+	 * if this cell is be visited
+	 */
+	public boolean isVisited=false;
+	/**
 	 * row coordinate
 	 */
 	public int r;
@@ -46,7 +50,7 @@ public class Cell {
 	
 	/**
 	 * default constructor
-	 */
+     */
 	public Cell() {
 		this(0, 0);
 	} // end of Cell()
