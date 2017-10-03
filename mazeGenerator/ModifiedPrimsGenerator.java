@@ -12,7 +12,6 @@ public class ModifiedPrimsGenerator implements MazeGenerator {
 
         //Pick a random starting cell and add it to set Z
         Cell randomCell = maze.map[random.nextInt(maze.sizeR)][random.nextInt(maze.sizeC)];
-        //Cell randomCell= maze.map[2][2];
         ArrayList<Cell> Z = new ArrayList<>();
         // put in the random cell
         randomCell.isVisited = true;
@@ -20,7 +19,6 @@ public class ModifiedPrimsGenerator implements MazeGenerator {
         System.out.println("The random Cell location is : "+randomCell.r + " " + randomCell.c);
 
         //a define of available neighbour of c ,choose randomly from it
-        Map<Integer,Cell> availableNeighbour = new HashMap<>();
         ArrayList<Cell> tempAvailable = new ArrayList<>();
 
         //create a frontier set to store all neighbours
@@ -63,14 +61,6 @@ public class ModifiedPrimsGenerator implements MazeGenerator {
             System.out.println("The index of random available index is :"+index_b);
             System.out.println("The available Cell b location is : "+cellFromAvailableNeighbours.r + " " + cellFromAvailableNeighbours.c);
 
-          /*  int index_b = random.nextInt(6);
-
-            while(availableNeighbour.get(index_b)==null){
-                    index_b=random.nextInt(6);
-            }
-
-            availableNeighbour.get(index_b).wall[index_b].present=false;*/
-
 
             //Carve a path between c and b , remove the wall
             for (int i = 0; i < 6; i++) {
@@ -93,7 +83,7 @@ public class ModifiedPrimsGenerator implements MazeGenerator {
             //Add the neighbours of cell c to the frontier set F
             for (int i = 0; i < 6; i++) {
                 if (cellFromF_neighbours.neigh[i] != null) {
-                    if (cellFromF_neighbours.neigh[i].isVisited==false&&(!F.contains(cellFromF_neighbours.neigh[i]))) {
+                    if (!cellFromF_neighbours.neigh[i].isVisited &&(!F.contains(cellFromF_neighbours.neigh[i]))) {
                         F.add(cellFromF_neighbours.neigh[i]);
                     }
                 }
