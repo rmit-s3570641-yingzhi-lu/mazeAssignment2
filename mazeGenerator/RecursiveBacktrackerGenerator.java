@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
+import static maze.Maze.NUM_DIR;
+
 public class RecursiveBacktrackerGenerator implements MazeGenerator {
 
 	@Override
@@ -27,7 +29,7 @@ public class RecursiveBacktrackerGenerator implements MazeGenerator {
        while(!history.isEmpty()){
 
             //If the current cell has any neighbours which have not been visited
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < NUM_DIR; i++) {
                 if(currentCell.neigh[i]!=null) {
                     if (!currentCell.neigh[i].isVisited) {
                         availableNeigh.add(currentCell.neigh[i]);
@@ -44,8 +46,8 @@ public class RecursiveBacktrackerGenerator implements MazeGenerator {
                 System.out.println("available number of neighbour "+availableNeigh.size());*/
 
                 //Remove the wall between the current cell and the chosen cell
-                for (int i = 0; i < 6; i++) {
-                    for (int j = 0; j < 6; j++) {
+                for (int i = 0; i < NUM_DIR; i++) {
+                    for (int j = 0; j < NUM_DIR; j++) {
                         if (availableNeigh.get(index).wall[i] == currentCell.wall[j] && (availableNeigh.get(index).wall[i]!=null)) {
                             /*System.out.println("equal!");
                             System.out.println(availableNeigh.get(index).wall[i]);

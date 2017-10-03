@@ -1,5 +1,6 @@
 package mazeSolver;
 
+import maze.Cell;
 import maze.Maze;
 
 /**
@@ -10,7 +11,15 @@ public class WallFollowerSolver implements MazeSolver {
 	
 	@Override
 	public void solveMaze(Maze maze) {
-		// TODO Auto-generated method stub
+		Cell currentCell = maze.entrance;
+
+
+		while(currentCell!=maze.exit){
+
+
+
+
+		}
         
 	} // end of solveMaze()
     

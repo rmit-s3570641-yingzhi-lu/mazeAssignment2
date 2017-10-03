@@ -5,6 +5,8 @@ import java.util.*;
 import maze.Maze;
 import maze.Cell;
 
+import static maze.Maze.NUM_DIR;
+
 public class GrowingTreeGenerator implements MazeGenerator {
     // Growing tree maze generator. As it is very general, here we implement as "usually pick the most recent cell, but occasionally pick a random cell"
 
@@ -70,7 +72,7 @@ public class GrowingTreeGenerator implements MazeGenerator {
 
 
             //store the unvisited neighbours of cell b
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < NUM_DIR; i++) {
                 if (b.neigh[i] != null) {
                     if (!b.neigh[i].isVisited) {
                         availableNeigh.add(b.neigh[i]);
@@ -85,8 +87,8 @@ public class GrowingTreeGenerator implements MazeGenerator {
                 Cell randomNeighbour = availableNeigh.get(index);
 
                 //carve a path
-                for (int i = 0; i < 6; i++) {
-                    for (int j = 0; j < 6; j++) {
+                for (int i = 0; i < NUM_DIR; i++) {
+                    for (int j = 0; j < NUM_DIR; j++) {
                         if (randomNeighbour.wall[i] == b.wall[j] && (randomNeighbour.wall[i] != null)) {
                             randomNeighbour.wall[i].present = false;
                             break;

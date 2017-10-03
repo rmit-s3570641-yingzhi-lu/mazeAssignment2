@@ -5,6 +5,8 @@ import maze.Maze;
 
 import java.util.*;
 
+import static maze.Maze.NUM_DIR;
+
 public class ModifiedPrimsGenerator implements MazeGenerator {
     @Override
     public void generateMaze(Maze maze) {
@@ -25,7 +27,7 @@ public class ModifiedPrimsGenerator implements MazeGenerator {
         ArrayList<Cell> F = new ArrayList<>();
 
         //firstly store the random cell
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < NUM_DIR; i++) {
             if (randomCell.neigh[i] != null) {
                 F.add(randomCell.neigh[i]);
             }
@@ -46,7 +48,7 @@ public class ModifiedPrimsGenerator implements MazeGenerator {
             //Randomly select a cell b that is in Z and adjacent to the cell c
 
             //find the available neighbour of current cellFromF_neighbours
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < NUM_DIR; i++) {
                 if (cellFromF_neighbours.neigh[i] != null) {
                     if (cellFromF_neighbours.neigh[i].isVisited) {
                         //availableNeighbour.put(i,cellFromF_neighbours.neigh[i]);
@@ -64,7 +66,7 @@ public class ModifiedPrimsGenerator implements MazeGenerator {
 
             //Carve a path between c and b , remove the wall
             for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 6; j++) {
+                for (int j = 0; j < NUM_DIR; j++) {
                     if (cellFromF_neighbours.wall[i] == cellFromAvailableNeighbours.wall[j] && (cellFromF_neighbours.wall[i] != null)) {
                         System.out.println(cellFromF_neighbours.wall[i]);
                         System.out.println(cellFromAvailableNeighbours.wall[j]);
@@ -81,7 +83,7 @@ public class ModifiedPrimsGenerator implements MazeGenerator {
             tempAvailable.clear();
 
             //Add the neighbours of cell c to the frontier set F
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < NUM_DIR; i++) {
                 if (cellFromF_neighbours.neigh[i] != null) {
                     if (!cellFromF_neighbours.neigh[i].isVisited &&(!F.contains(cellFromF_neighbours.neigh[i]))) {
                         F.add(cellFromF_neighbours.neigh[i]);

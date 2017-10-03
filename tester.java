@@ -5,6 +5,9 @@ import mazeGenerator.GrowingTreeGenerator;
 import mazeGenerator.MazeGenerator;
 import mazeGenerator.ModifiedPrimsGenerator;
 import mazeGenerator.RecursiveBacktrackerGenerator;
+import mazeSolver.BiDirectionalRecursiveBacktrackerSolver;
+import mazeSolver.MazeSolver;
+import mazeSolver.WallFollowerSolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +23,20 @@ public class tester {
         maze.initMaze(20,20,0,0,19,19,tunnelList);
 
         //MazeGenerator mazeGenerator = new ModifiedPrimsGenerator();
-        //MazeGenerator mazeGenerator= new RecursiveBacktrackerGenerator();
-        MazeGenerator mazeGenerator = new GrowingTreeGenerator();
+        MazeGenerator mazeGenerator= new RecursiveBacktrackerGenerator();
+        //MazeGenerator mazeGenerator = new GrowingTreeGenerator();
         mazeGenerator.generateMaze(maze);
 
         maze.draw();
-        System.out.println(maze.isPerfect());
+
+        //MazeSolver mazeSolver= new WallFollowerSolver();
+        MazeSolver mazeSolver= new BiDirectionalRecursiveBacktrackerSolver();
+        mazeSolver.solveMaze(maze);
+
+
+        System.out.println("If perfect: "+maze.isPerfect());
+        System.out.println("If solved: "+maze.validate());
+
 
     }
 }

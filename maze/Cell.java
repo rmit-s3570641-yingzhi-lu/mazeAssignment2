@@ -13,6 +13,10 @@ public class Cell {
 	 * if this cell is be visited
 	 */
 	public boolean isVisited=false;
+    /**
+     * if the solver had visited this cell
+     */
+	public boolean isSolverVisited= false;
 	/**
 	 * row coordinate
 	 */

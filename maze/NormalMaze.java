@@ -206,7 +206,7 @@ public class NormalMaze extends Maze {
 		StdDraw.setPenColor(StdDraw.GRAY);
 		StdDraw.filledCircle(cell.c + 0.5, cell.r + 0.5, 0.25);
 	} // end of drawFtPrt()
-	
+
 
         @Override
         public boolean validate() {
