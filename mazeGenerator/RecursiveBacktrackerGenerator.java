@@ -35,8 +35,10 @@ public class RecursiveBacktrackerGenerator implements MazeGenerator {
 
             // if this cell has tunnel, add tunnel to the exit
             if (maze instanceof TunnelMaze && currentCell.tunnelTo != null) {
+                currentCell.isTunnel=true;
                 currentCell = currentCell.tunnelTo;
                 currentCell.isVisited=true;
+                currentCell.isTunnel=true;
                 //System.out.println("传送后单元格为"+(currentCell.r+1) + " "+ (currentCell.c+1));
             }
 
@@ -82,6 +84,11 @@ public class RecursiveBacktrackerGenerator implements MazeGenerator {
                 //Pop a cell from the stack
                 //Make it the current cell
                 history.pop();
+
+                if(currentCell.isTunnel){
+                    history.pop();
+                }
+
             }
 
         }

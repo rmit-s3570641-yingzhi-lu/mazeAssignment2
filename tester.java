@@ -18,8 +18,8 @@ public class tester {
     public static void main(String[] args) {
 
         //Maze maze=new NormalMaze();
-        Maze maze = new HexMaze();
-        //Maze maze = new TunnelMaze();
+        //Maze maze = new HexMaze();
+        Maze maze = new TunnelMaze();
         List<int[]> tunnelList = new ArrayList<>();
         int temp1[]= {2, 2, 10, 10};
         int temp2[]= {13,11,4,2};

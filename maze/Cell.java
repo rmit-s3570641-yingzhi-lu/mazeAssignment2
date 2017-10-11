@@ -26,6 +26,10 @@ public class Cell {
      */
     public boolean isSolverVisited= false;
 	/**
+	 * if current cell is tunnel
+	 */
+	public boolean isTunnel =false;
+	/**
 	 * row coordinate
 	 */
 	public int r;
