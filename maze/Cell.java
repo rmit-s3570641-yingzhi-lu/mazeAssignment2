@@ -14,9 +14,13 @@ public class Cell {
 	 */
 	public boolean isVisited=false;
     /**
-     * if the solver had visited this cell
+     * if the solver had visited this cell from the entrance
      */
-	public boolean isSolverVisited= false;
+	public boolean isVisitedFromEntrance= false;
+    /**
+     * if the solver had visited this cell from the exit
+     */
+    public boolean isVisitedFromExit= false;
 	/**
 	 * row coordinate
 	 */

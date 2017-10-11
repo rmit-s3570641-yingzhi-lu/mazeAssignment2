@@ -20,7 +20,7 @@ public class tester {
         //Maze maze = new HexMaze();
         List<int[]> tunnelList = new ArrayList<>();
 
-        maze.initMaze(20,20,0,0,19,19,tunnelList);
+        maze.initMaze(10,10,0,0,9,2,tunnelList);
 
         //MazeGenerator mazeGenerator = new ModifiedPrimsGenerator();
         MazeGenerator mazeGenerator= new RecursiveBacktrackerGenerator();

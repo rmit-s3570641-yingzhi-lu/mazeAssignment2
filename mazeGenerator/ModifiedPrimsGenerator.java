@@ -13,7 +13,7 @@ public class ModifiedPrimsGenerator implements MazeGenerator {
         Random random = new Random();
 
         //Pick a random starting cell and add it to set Z
-        Cell randomCell = maze.map[random.nextInt(maze.sizeR)][random.nextInt(maze.sizeC)];
+        Cell randomCell = maze.map[random.nextInt(maze.sizeR-1)][random.nextInt(maze.sizeC-1)];
         ArrayList<Cell> Z = new ArrayList<>();
         // put in the random cell
         randomCell.isVisited = true;

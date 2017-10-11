@@ -27,7 +27,8 @@ public class RecursiveBacktrackerGenerator implements MazeGenerator {
 
         //While there are unvisited cells
        while(!history.isEmpty()){
-
+           currentCell=history.peek();
+           availableNeigh.clear();
             //If the current cell has any neighbours which have not been visited
             for (int i = 0; i < NUM_DIR; i++) {
                 if(currentCell.neigh[i]!=null) {
@@ -53,6 +54,7 @@ public class RecursiveBacktrackerGenerator implements MazeGenerator {
                             System.out.println(availableNeigh.get(index).wall[i]);
                             System.out.println(currentCell.wall[j]);*/
                             availableNeigh.get(index).wall[i].present=false;
+                            currentCell.wall[j].present=false;
                             break;
                         }
                     }
@@ -62,12 +64,12 @@ public class RecursiveBacktrackerGenerator implements MazeGenerator {
                 currentCell.isVisited=true;
                 //push the chosen cell to the stack
                 history.push(currentCell);
-                availableNeigh.clear();
+
 
             }else{ //If there are no valid cells to move to.
                 //Pop a cell from the stack
                 //Make it the current cell
-                currentCell=history.pop();
+                history.pop();
             }
 
        }
