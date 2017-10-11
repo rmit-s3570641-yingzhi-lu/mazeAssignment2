@@ -76,12 +76,6 @@ public class WallFollowerSolver implements MazeSolver {
 				//draw the path
 				maze.drawFtPrt(currentCell);
 
-				try {
-					sleep(50);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
 				currentCell.isSolverVisited=true;
 				//push the chosen cell to the stack
 				history.push(currentCell);
@@ -98,20 +92,6 @@ public class WallFollowerSolver implements MazeSolver {
 		}
 
 		ifSolved = true;
-		System.out.println("Green path is the shortest path!");
-		//draw the shorted path with red dot
-		if (maze instanceof NormalMaze || maze instanceof TunnelMaze) {
-			for (Cell cell : path) {
-				StdDraw.setPenColor(StdDraw.GREEN);
-				StdDraw.filledCircle(cell.c + 0.5, cell.r + 0.5, 0.15);
-			}
-		}else if(maze instanceof HexMaze){
-
-			for (Cell cell : path) {
-				StdDraw.setPenColor(StdDraw.GREEN);
-				StdDraw.filledCircle(cell.r % 2 * 0.5 + cell.c - (cell.r + 1) / 2 + 0.5, cell.r + 0.5, 0.15);
-			}
-		}
         
 	} // end of solveMaze()
     

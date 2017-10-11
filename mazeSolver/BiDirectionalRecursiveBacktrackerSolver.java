@@ -87,11 +87,6 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
 
                 //draw the path
                 maze.drawFtPrt(currentCellFromEntrance);
-                try {
-                    sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
                 //System.out.println("前进后单元格的行为 " + (currentCellFromEntrance.r + 1) + " " + "列为 " + (currentCellFromEntrance.c + 1));
 
@@ -151,12 +146,6 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
                 //draw the path
                 maze.drawFtPrt(currentCellFromExit);
 
-                try {
-                    sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
                 //System.out.println("前进后单元格的行为 " + (currentCellFromExit.r + 1) + " " + "列为 " + (currentCellFromExit.c + 1));
 
                 currentCellFromExit.isVisitedFromExit = true;
@@ -177,21 +166,6 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
         }
 
         ifSolved = true;
-
-        System.out.println("Orange path is the shorted path!");
-        //draw the shorted path with red dot
-        if (maze instanceof NormalMaze || maze instanceof TunnelMaze) {
-            for (Cell cell : path) {
-                StdDraw.setPenColor(StdDraw.ORANGE);
-                StdDraw.filledCircle(cell.c + 0.5, cell.r + 0.5, 0.15);
-            }
-        }else if(maze instanceof HexMaze){
-
-            for (Cell cell : path) {
-                StdDraw.setPenColor(StdDraw.ORANGE);
-                StdDraw.filledCircle(cell.r % 2 * 0.5 + cell.c - (cell.r + 1) / 2 + 0.5, cell.r + 0.5, 0.15);
-            }
-        }
 
 
     } // end of solveMaze()
