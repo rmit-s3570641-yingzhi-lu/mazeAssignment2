@@ -16,6 +16,7 @@ import static maze.Maze.NUM_DIR;
 public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
 
     private boolean ifSolved = false;
+    private int cellExplored = 1;
 
     @Override
     public void solveMaze(Maze maze) {
@@ -44,6 +45,9 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
         ArrayList<Cell> availableNeighFromExit = new ArrayList<>();
 
         while (!(currentCellFromEntrance.isVisitedFromExit || currentCellFromExit.isVisitedFromEntrance)) {
+
+            cellExplored++;
+
             availableNeighFromEntrance.clear();
             currentCellFromEntrance = historyFromEntrance.peek();
             //System.out.println("查找领居前单元格的行为 " + (currentCellFromEntrance.r + 1) + " " + "列为 " + (currentCellFromEntrance.c + 1));
@@ -86,6 +90,7 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
                 //Pop a cell from the stack
                 //Make it the current cell
                 historyFromEntrance.pop();
+                cellExplored--;
                 //System.out.println("POP后倒退到单元格的行为 " + (currentCellFromEntrance.r + 1) + " " + "列为 " + (currentCellFromEntrance.c + 1));
 
             }
@@ -135,13 +140,13 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
                 //Pop a cell from the stack
                 //Make it the current cell
                 historyFromExit.pop();
+                cellExplored--;
                 //System.out.println("POP后倒退到单元格的行为 " + (currentCellFromExit.r + 1) + " " + "列为 " + (currentCellFromExit.c + 1));
 
             }
         }
 
         ifSolved = true;
-        System.out.println(ifSolved);
 
     } // end of solveMaze()
 
@@ -154,8 +159,7 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
 
     @Override
     public int cellsExplored() {
-        // TODO Auto-generated method stub
-        return 0;
+        return cellExplored;
     } // end of cellsExplored()
 
 } // end of class BiDirectionalRecursiveBackTrackerSolver

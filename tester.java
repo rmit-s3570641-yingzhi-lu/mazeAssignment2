@@ -29,8 +29,8 @@ public class tester {
 
         maze.draw();
 
-        //MazeSolver mazeSolver= new WallFollowerSolver();
-        MazeSolver mazeSolver= new BiDirectionalRecursiveBacktrackerSolver();
+        MazeSolver mazeSolver= new WallFollowerSolver();
+        //MazeSolver mazeSolver= new BiDirectionalRecursiveBacktrackerSolver();
         mazeSolver.solveMaze(maze);
 
 

@@ -21,6 +21,10 @@ public class Cell {
      * if the solver had visited this cell from the exit
      */
     public boolean isVisitedFromExit= false;
+    /**
+     * if the solver had visited this cell by wall follower
+     */
+    public boolean isSolverVisited= false;
 	/**
 	 * row coordinate
 	 */
