@@ -1,7 +1,6 @@
 package mazeSolver;
 
-import maze.Cell;
-import maze.Maze;
+import maze.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,6 +17,8 @@ public class WallFollowerSolver implements MazeSolver {
 
 	private boolean ifSolved = false;
 	private int cellExplored = 1;
+	//to draw the shorted path
+	ArrayList<Cell> path = new ArrayList<>();
 	
 	@Override
 	public void solveMaze(Maze maze) {
@@ -33,6 +34,7 @@ public class WallFollowerSolver implements MazeSolver {
 
 		//The history is the stack of visited locations
 		history.push(currentCell);
+		path.add(currentCell);
 
 		// a ArrayList to store the available neighbours of current cell
 		ArrayList<Cell> availableNeigh = new ArrayList<>();
@@ -45,9 +47,19 @@ public class WallFollowerSolver implements MazeSolver {
 			cellExplored++;
 
 			availableNeigh.clear();
+
+			// if this cell has tunnel, add tunnel to the exit
+			if (maze instanceof TunnelMaze && currentCell.tunnelTo != null) {
+				currentCell = currentCell.tunnelTo;
+				currentCell.isSolverVisited=true;
+				maze.drawFtPrt(currentCell);
+				path.add(currentCell);
+				//System.out.println("传送后单元格为"+(currentCell.r+1) + " "+ (currentCell.c+1));
+			}
+
 			//If the current cell has any neighbours which have not been visited
 			for (int i = 0; i < NUM_DIR; i++) {
-				if (history.peek().neigh[i] != null) {
+				if (currentCell.neigh[i] != null) {
 					if (!currentCell.wall[i].present) {
 						if (!currentCell.neigh[i].isSolverVisited) {
 							availableNeigh.add(currentCell.neigh[i]);
@@ -73,18 +85,33 @@ public class WallFollowerSolver implements MazeSolver {
 				currentCell.isSolverVisited=true;
 				//push the chosen cell to the stack
 				history.push(currentCell);
-
+				path.add(currentCell);
 
 			}else{ //If there are no valid cells to move to.
 				//Pop a cell from the stack
 				//Make it the current cell
 				history.pop();
+				path.remove(currentCell);
 				cellExplored--;
 			}
 
 		}
 
 		ifSolved = true;
+		System.out.println("Green path is the shortest path!");
+		//draw the shorted path with red dot
+		if (maze instanceof NormalMaze || maze instanceof TunnelMaze) {
+			for (Cell cell : path) {
+				StdDraw.setPenColor(StdDraw.GREEN);
+				StdDraw.filledCircle(cell.c + 0.5, cell.r + 0.5, 0.15);
+			}
+		}else if(maze instanceof HexMaze){
+
+			for (Cell cell : path) {
+				StdDraw.setPenColor(StdDraw.GREEN);
+				StdDraw.filledCircle(cell.r % 2 * 0.5 + cell.c - (cell.r + 1) / 2 + 0.5, cell.r + 0.5, 0.15);
+			}
+		}
         
 	} // end of solveMaze()
     

@@ -1,9 +1,9 @@
 package mazeSolver;
 
-import maze.Cell;
-import maze.Maze;
+import maze.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Stack;
 
@@ -17,6 +17,8 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
 
     private boolean ifSolved = false;
     private int cellExplored = 1;
+    //to draw the shorted path
+    ArrayList<Cell> path = new ArrayList<>();
 
     @Override
     public void solveMaze(Maze maze) {
@@ -31,9 +33,11 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
 
         currentCellFromEntrance.isVisitedFromEntrance = true;
         maze.drawFtPrt(currentCellFromEntrance);
+        path.add(currentCellFromEntrance);
 
         currentCellFromExit.isVisitedFromExit = true;
         maze.drawFtPrt(currentCellFromExit);
+        path.add(currentCellFromExit);
 
         //The history is the stack of visited locations
         historyFromEntrance.push(currentCellFromEntrance);
@@ -51,6 +55,16 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
             availableNeighFromEntrance.clear();
             currentCellFromEntrance = historyFromEntrance.peek();
             //System.out.println("查找领居前单元格的行为 " + (currentCellFromEntrance.r + 1) + " " + "列为 " + (currentCellFromEntrance.c + 1));
+
+            // if this cell has tunnel, add tunnel to the exit
+            if (maze instanceof TunnelMaze && currentCellFromEntrance.tunnelTo != null) {
+                currentCellFromEntrance = currentCellFromEntrance.tunnelTo;
+                currentCellFromEntrance.isVisitedFromEntrance = true;
+                maze.drawFtPrt(currentCellFromEntrance);
+                path.add(currentCellFromEntrance);
+                //System.out.println("传送后单元格为"+(currentCell.r+1) + " "+ (currentCell.c+1));
+            }
+
             //initially randomly choose an adjacent unvisited cell
             for (int i = 0; i < NUM_DIR; i++) {
                 if (historyFromEntrance.peek().neigh[i] != null) {
@@ -84,22 +98,36 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
                 currentCellFromEntrance.isVisitedFromEntrance = true;
                 //push the chosen cell to the stack
                 historyFromEntrance.push(currentCellFromEntrance);
+                path.add(currentCellFromEntrance);
 
             } else {
                 // /If there are no valid cells to move to.
                 //Pop a cell from the stack
                 //Make it the current cell
                 historyFromEntrance.pop();
+                path.remove(currentCellFromEntrance);
                 cellExplored--;
                 //System.out.println("POP后倒退到单元格的行为 " + (currentCellFromEntrance.r + 1) + " " + "列为 " + (currentCellFromEntrance.c + 1));
 
             }
 
 
-            //From the exit
+            /*
+            From the exit to search the path
+             */
             availableNeighFromExit.clear();
             currentCellFromExit = historyFromExit.peek();
             //System.out.println("查找领居前单元格的行为 " + (currentCellFromExit.r + 1) + " " + "列为 " + (currentCellFromExit.c + 1));
+
+            // if this cell has tunnel, add tunnel to the exit
+            if (maze instanceof TunnelMaze && currentCellFromExit.tunnelTo != null) {
+                currentCellFromExit = currentCellFromExit.tunnelTo;
+                currentCellFromExit.isVisitedFromExit = true;
+                maze.drawFtPrt(currentCellFromExit);
+                path.add(currentCellFromExit);
+                //System.out.println("传送后单元格为"+(currentCell.r+1) + " "+ (currentCell.c+1));
+            }
+
             //initially randomly choose an adjacent unvisited cell
             for (int i = 0; i < NUM_DIR; i++) {
                 if (historyFromExit.peek().neigh[i] != null) {
@@ -134,12 +162,14 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
                 currentCellFromExit.isVisitedFromExit = true;
                 //push the chosen cell to the stack
                 historyFromExit.push(currentCellFromExit);
+                path.add(currentCellFromExit);
 
             } else {
                 // /If there are no valid cells to move to.
                 //Pop a cell from the stack
                 //Make it the current cell
                 historyFromExit.pop();
+                path.remove(currentCellFromExit);
                 cellExplored--;
                 //System.out.println("POP后倒退到单元格的行为 " + (currentCellFromExit.r + 1) + " " + "列为 " + (currentCellFromExit.c + 1));
 
@@ -147,6 +177,22 @@ public class BiDirectionalRecursiveBacktrackerSolver implements MazeSolver {
         }
 
         ifSolved = true;
+
+        System.out.println("Orange path is the shorted path!");
+        //draw the shorted path with red dot
+        if (maze instanceof NormalMaze || maze instanceof TunnelMaze) {
+            for (Cell cell : path) {
+                StdDraw.setPenColor(StdDraw.ORANGE);
+                StdDraw.filledCircle(cell.c + 0.5, cell.r + 0.5, 0.15);
+            }
+        }else if(maze instanceof HexMaze){
+
+            for (Cell cell : path) {
+                StdDraw.setPenColor(StdDraw.ORANGE);
+                StdDraw.filledCircle(cell.r % 2 * 0.5 + cell.c - (cell.r + 1) / 2 + 0.5, cell.r + 0.5, 0.15);
+            }
+        }
+
 
     } // end of solveMaze()
 
